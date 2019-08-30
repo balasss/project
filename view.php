@@ -7,8 +7,8 @@
 
 <body>
 <?php
-
-$link = mysqli_connect("localhost","root","","world") or die ("conn err:" . mysql_error());
+include "db.php";
+//$link = mysqli_connect("localhost","root","","world") or die ("conn err:" . mysql_error());
 if(empty($id)){ 
 $action = $_REQUEST['action'];
 $id = $_REQUEST['id'];
