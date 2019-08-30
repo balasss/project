@@ -7,7 +7,7 @@
 
 <body>
 <?php
-$link = mysqli_connect("localhost","root","","world") or die ("conn err:" . mysqli_error());
+include "db.php";
     $action=$_REQUEST['action'];
 		$id=$_REQUEST['id'];
 		
