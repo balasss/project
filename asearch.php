@@ -5,7 +5,7 @@
 <title> </title>
 <body>
 <?php
-$link = mysqli_connect("localhost","root","","world") or die ("conn err:" . mysqli_error());
+include "db.php";
 $search = $_GET['name'];
 		if(!$search==''){            
 		echo "<h3><center>Search For City Records</center></h3>";
