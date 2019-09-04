@@ -6,7 +6,45 @@
 <title> </title>
 
 <body>
+ <?php
+$apiKey = "371191f2c341e0cd17618d002b3f035c";
+$cityId = "1269750";
+$googleApiUrl = "http://api.openweathermap.org/data/2.5/weather?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey;
 
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_URL, $googleApiUrl);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+curl_setopt($ch, CURLOPT_VERBOSE, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+$response = curl_exec($ch);
+
+curl_close($ch);
+$data = json_decode($response);
+$currentTime = time();
+?>
+<div align="center"><H1>My Test Project<H1></div>
+ <div class="report-container">
+        <h6><?php echo $data->name; ?> Weather Status</h6>
+        <div class="time">
+            <div><?php echo date("l g:i a", $currentTime); ?></div>
+            <div><?php echo date("jS F, Y",$currentTime); ?></div>
+            <div><?php echo ucwords($data->weather[0]->description); ?></div>
+        </div>
+		
+        <div class="weather-forecast">
+            <img
+                src="http://openweathermap.org/img/w/<?php echo $data->weather[0]->icon; ?>.png"
+                class="weather-icon" /> <?php echo $data->main->temp_max; ?>&deg;C<span
+                class="min-temperature"><?php echo $data->main->temp_min; ?>&deg;C</span>
+        </div>
+        <div class="time">
+            <div>Humidity: <?php echo $data->main->humidity; ?> %</div>
+            <div>Wind: <?php echo $data->wind->speed; ?> km/h</div>
+        </div>
+    </div>
 <?php
 echo "<h1>City Search </h1>";
 echo "</br>";
@@ -16,39 +54,13 @@ echo "<form action='asearch.php' method='GET'>
 <input type='submit' name='submit' value='submit'>
 </form>";
 echo "<h2> search For City Alpabatic </h2>";
-echo "<table>";
-echo "<tr>";
-echo "<td><a href='view.php?action=view&id=A'>A</a></td>";
-echo "<td><a href='view.php?action=view&id=B'>B</a></td>";
-echo "<td><a href='view.php?action=view&id=C'>C</a></td>";
-
-echo "<td><a href='view.php?action=view&id=D'>D</a></td>";
-echo "<td><a href='view.php?action=view&id=E'>E</a></td>";
-echo "<td><a href='view.php?action=view&id=F'>F</a></td>";
-echo "<td><a href='view.php?action=view&id=G'>G</a></td>";
-echo "<td><a href='view.php?action=view&id=H'>H</a></td>";
-echo "<td><a href='view.php?action=view&id=I'>I</a></td>";
-echo "<td><a href='view.php?action=view&id=J'>J</a></td>";
-echo "<td><a href='view.php?action=view&id=K'>K</a></td>";
-echo "<td><a href='view.php?action=view&id=L'>L</a></td>";
-
-echo "<td><a href='view.php?action=view&id=M'>M</a></td>";
-echo "<td><a href='view.php?action=view&id=N'>N</a></td>";
-echo "<td><a href='view.php?action=view&id=O'>O</a></td>";
-echo "<td><a href='view.php?action=view&id=P'>P</a></td>";
-echo "<td><a href='view.php?action=view&id=Q'>Q</a></td>";
-echo "<td><a href='view.php?action=view&id=R'>R</a></td>";
-echo "<td><a href='view.php?action=view&id=S'>S</a></td>";
-echo "<td><a href='view.php?action=view&id=T'>T</a></td>";
-echo "<td><a href='view.php?action=view&id=U'>U</a></td>";
-
-echo "<td><a href='view.php?action=view&id=V'>V</a></td>";
-echo "<td><a href='view.php?action=view&id=W'>W</a></td>";
-echo "<td><a href='view.php?action=view&id=X'>X</a></td>";
-echo "<td><a href='view.php?action=view&id=Y'>Y</a></td>";
-echo "<td><a href='view.php?action=view&id=Z'>Z</a></td>";
-echo "</br>";
-echo "</table>";
+//echo "<table>";
+//echo "<tr>";
+foreach (range('A','Z') as $alph){
+	
+echo "<td><a href='view.php?action=view&id=$alph'>$alph </a></td>";
+}
+//echo "</table>";
 echo "</center>";
 ?>
 
